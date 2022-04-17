@@ -1,0 +1,6 @@
+.stripImg{
+height: 250px !important;
+object-fit: cover;
+object-position: center;
+width: 100%;
+}
