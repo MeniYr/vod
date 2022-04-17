@@ -16,7 +16,7 @@ export default function Years(props) {
   }, [params])
 
   const doApi = async () => {
-    let url = `http://www.omdbapi.com/?i=${params.id}&apikey=cbbb225d`
+    let url = `https://www.omdbapi.com/?i=${params.id}&apikey=cbbb225d`
     let resp = await axios.get(url);
     let data = await resp.data;
     console.log(data)
