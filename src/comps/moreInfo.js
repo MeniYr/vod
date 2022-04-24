@@ -5,7 +5,7 @@ import { RiArrowGoBackFill } from 'react-icons/ri'
 import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 import ReactStars from "react-rating-stars-component";
 // import reactStars from 'react-rating-stars-component';
- 
+
 export default function Years(props) {
   const [Loading, setLoading] = useState(false);
   const [ar, setAr] = useState([]);
@@ -32,57 +32,66 @@ export default function Years(props) {
   }
 
 
-const rating = ()=>{
-  let isInt = Number.isInteger(ar.imdbRating);
-  let num = Number(ar.imdbRating);
-  console.log(isInt)
+  const rating = () => {
+    let isInt = Number.isInteger(ar.imdbRating);
+    let num = Number(ar.imdbRating);
+    if (!isInt && (Math.ceil(num) > num)) {
+      return Math.floor(num) + 0.5
+    }
+    else
+      return num;
 
-  if(!isInt&&(Math.ceil(num)>num)){
-    console.log(6%1)
-    console.log(Math.ceil(6.0))
-    return Math.floor(num)+0.5
-  }
-  else
-  return num;
+  };
 
-};
- 
-const star =
-
-  <ReactStars
-    count={10}
-    size={30}
-    activeColor="#ffd700"
-    value= {rating()}
-    a11y= {true}
-    isHalf= {true}
-    edit={false}
-  />;
+  const star =
+    <ReactStars
+      count={10}
+      size={30}
+      activeColor="#ffd700"
+      value={rating()}
+      a11y={true}
+      isHalf={true}
+      edit={false}
+    />;
 
   return (
     <div className='container my-4 text-warning text-center '>
-      <Link title='Back' className='fs-1 mt-5 p-0 col-1 d-flex justify-content-center ' to={"/"}><RiArrowGoBackFill /></Link>
-      <h1 className='display-2 fw-bold mb-3'>{ar.Title}</h1>
-      <div className='d-flex  justify-content-center mt-2 '>
+      <Link
+        className='fs-1 mt-5 p-0 col-1 d-flex justify-content-center '
+        to={"/"}
+      >
+        <RiArrowGoBackFill title='Back' />
+      </Link>
+      <div className='d-block  justify-content-center mt-2 '>
 
 
-        {Loading? <div key={ar.imdbID} className='col-4 my-5 w-md-50 h-md-50'>
-          {ar.Poster !== "N/A" ? <img className='shadow ' src={ar.Poster}  alt="PosterImg" /> : <h1 className='text-primery d-flex text-align-center'>soory, there is no pic to show</h1>}
-          <div className='d-block position-realative justify-content-center mt-2' >
-            <h2 className='text-primary mt-4 fw-bold'>{ar.Title}</h2>
-            <br/>
+        {Loading ? <div
+          key={ar.imdbID}
+          className=' my-5 col-md-6 mx-auto '>
+          {ar.Poster !== "N/A" ?
+            <img
+              className='shadow '
+              src={ar.Poster}
+              alt="PosterImg"
+            />
+            : <h1
+              className='text-primery d-flex text-align-center'>soory, there is no pic to show ...😕
+            </h1>}
+          <div className='d-block justify-content-center mt-3' >
+            <h1 className='display-2 text-danger fw-bold my-3'>{ar.Title}</h1>
+            <br />
             <h3 className='d-flex justify-content-center'>{star}</h3>
             <h3>Rating: {ar.imdbRating}</h3>
-            <br/>
+            <br />
             <h3>Year: {ar.Year}</h3>
             <h3>Votes: {ar.imdbVotes}</h3>
-            
+
             <h3>Brief: {ar.Plot}</h3>
 
           </div>
         </div>
 
-          : <div className='d-flex justify-content-center text-warning mt-5 fs-1'>Loading ...<AiOutlineLoading3Quarters role="status" fontSize={5} className='spinner-border text-warning ms-4 mt-3' /></div>}
+          : <div className='d-md-flex justify-content-center text-warning mt-5 fs-1'>Loading ...<AiOutlineLoading3Quarters role="status" fontSize={5} className='spinner-border text-warning ms-4 mt-3' /></div>}
       </div>
 
 
